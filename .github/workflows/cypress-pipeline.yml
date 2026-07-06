@@ -3,11 +3,11 @@ name: Cypress Pipeline
 on:
   push:
     branches:
-      - principal
+      - main
 
   pull_request:
     branches:
-      - principal
+      - main
 
 jobs:
   cypress-run:
