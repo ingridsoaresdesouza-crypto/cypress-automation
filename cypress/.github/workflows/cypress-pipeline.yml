@@ -1,4 +1,3 @@
-
 name: Cypress Pipeline
 
 on:
@@ -12,25 +11,29 @@ on:
 
 jobs:
   cypress-run:
-  #maquina que será executada
+    # Máquina que será executada
     runs-on: ubuntu-latest
 
     steps:
-    #clone do projeto
+      # Clona o repositório
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Instala o Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # Instala as dependências
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests
-        run: npx cypress run
-               with:
+      # Executa os testes do Cypress
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
