@@ -10,7 +10,7 @@ const devices = [
     // Mobile - iOS
     'iphone-x',
         // Mobile - Android
-      'samsung-s10'
+      'samsung-s1git'
 ]
 
 devices.forEach((device) => {
