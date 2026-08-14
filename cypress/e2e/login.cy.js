@@ -3,49 +3,69 @@
 const user_data = require('../fixtures/user_valid.json')
 const { faker } = require("@faker-js/faker")
 
-describe('Cadastro de usuário', () => {
+const devices = [
+    // Desktop
+    'macbook-15',
 
-    beforeEach(() => {
+    // Mobile - iOS
+    'iphone-x',
+        // Mobile - Android
+      'samsung-s1git'
+]
 
-        // Acessando tela de cadastro
-        cy.accessRegisterPage()
+devices.forEach((device) => {
 
-    })
+    describe(`Cadastro de usuário - ${device}`, () => {
 
-    it('A - Cadastro realizado com sucesso', () => {
-        const name = faker.person.fullName ()
-    
-        cy.fillFullName(name)
-        cy.fillEmail(user_data.email)
-        cy.fillPassword(user_data.password)
-        cy.saveRegister()
-        cy.checkRegistroSucess(name)
+        beforeEach(() => {
 
-    })
+            // Define o tamanho da tela
+            cy.viewport(device)
 
-    it('B - Cadastro com campos vazios', () => {
+            // Acessando tela de cadastro
+            cy.accessRegisterPage()
 
-       cy.saveRegister()
-       cy.checkMessage('O campo nome deve ser prenchido')    
-    })
+        })
 
-    it('C - Cadastro com e-mail inválido', () => {
+        it('A - Cadastro realizado com sucesso', () => {
 
-        cy.fillFullName()
-        cy.fillInvalidEmail()
-        cy.fillPassword()
-        cy.saveRegister()
-        cy.checkMessage('O campo e-mail deve ser prenchido corretamente')
-    })
+            const name = faker.person.fullName()
 
-    it('D - Senha com menos de 6 caracteres', () => {
+            cy.fillFullName(name)
+            cy.fillEmail(user_data.email)
+            cy.fillPassword(user_data.password)
+            cy.saveRegister()
+            cy.checkRegistroSucess(name)
 
-        cy.fillFullName()
-        cy.fillEmail()
-        cy.fillInvalidPassword()
-        cy.saveRegister()
-        cy.checkMessage('O campo senha deve ter pelo menos 6 dígitos')
-            
+        })
+
+        it('B - Cadastro com campos vazios', () => {
+
+            cy.saveRegister()
+            cy.checkMessage('O campo nome deve ser prenchido')
+
+        })
+
+        it('C - Cadastro com e-mail inválido', () => {
+
+            cy.fillFullName()
+            cy.fillInvalidEmail()
+            cy.fillPassword()
+            cy.saveRegister()
+            cy.checkMessage('O campo e-mail deve ser prenchido corretamente')
+
+        })
+
+        it('D - Senha com menos de 6 caracteres', () => {
+
+            cy.fillFullName()
+            cy.fillEmail()
+            cy.fillInvalidPassword()
+            cy.saveRegister()
+            cy.checkMessage('O campo senha deve ter pelo menos 6 dígitos')
+
+        })
+
     })
 
 })
