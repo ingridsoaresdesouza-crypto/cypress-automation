@@ -4,9 +4,13 @@ const user_data = require('../fixtures/user_valid.json')
 const { faker } = require("@faker-js/faker")
 
 const devices = [
+    // Desktop
     'macbook-15',
-    'iphone-14',
-    'iphone-x'
+
+    // Mobile - iOS
+    'iphone-x',
+        // Mobile - Android
+      'samsung-s10'
 ]
 
 devices.forEach((device) => {
